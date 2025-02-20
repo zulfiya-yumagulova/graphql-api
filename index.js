@@ -17,25 +17,23 @@ const resolvers = {
     game: (_, args) => {
       return db.games.find((game) => game.id === args.id);
     },
-    Game: {
-      reviews(parent) {
-        return db.reviews.filter((review) => review.game_id === parent.id);
-      },
+  },
+  Game: {
+    reviews(parent) {
+      return db.reviews.filter((r) => r.game_id === parent.id);
     },
-    Author: {
-      reviews(parent) {
-        return db.reviews.filter(
-          (author) => author.author_id === parent.author_id
-        );
-      },
+  },
+  Review: {
+    author(parent) {
+      return db.authors.find((a) => a.id === parent.author_id);
     },
-    Reviews: {
-      author(parent) {
-        return db.authors.find((author) => author.id === parent.author_id);
-      },
-      game(parent) {
-        return db.games.find((game) => game.game_id === parent.game_id);
-      },
+    game(parent) {
+      return db.games.find((g) => g.id === parent.game_id);
+    },
+  },
+  Author: {
+    reviews(parent) {
+      return db.reviews.filter((r) => r.author_id === parent.id);
     },
   },
 };
