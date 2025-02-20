@@ -6,8 +6,17 @@ import db from "./db.js";
 const resolvers = {
   Query: {
     games: () => db.games,
-    reviews: () => db.reviews,
     authors: () => db.authors,
+    reviews: () => db.reviews,
+    review: (_, args) => {
+      return db.reviews.find((review) => review.id === args.id);
+    },
+    author: (_, args) => {
+      return db.authors.find((author) => author.id === args.id);
+    },
+    game: (_, args) => {
+      return db.games.find((game) => game.id === args.id);
+    },
   },
 };
 
